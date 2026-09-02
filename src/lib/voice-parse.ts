@@ -124,7 +124,7 @@ export function parseSpeech(text: string, items: Item[]): ParseResult {
   else if (tokens.some((t) => CASH_WORDS.includes(t))) type = "cash";
 
   // 1. Item: first catalogue item whose name appears in the sentence
-  const matched = items.find((i) => tokens.includes(i.name.toLowerCase().split(" ")[0]));
+  const matched = items.find((i) => tokens.includes(i.name.toLowerCase().split(" ")[0] ?? ""));
   if (matched) {
     itemName = matched.name;
     unit = matched.unit;
@@ -147,9 +147,10 @@ export function parseSpeech(text: string, items: Item[]): ParseResult {
       break;
     }
   }
-  if (qtyIdx === -1 && numbers.length) {
-    qty = numbers[0].value;
-    qtyIdx = numbers[0].index;
+  const firstNum = numbers[0];
+  if (qtyIdx === -1 && firstNum) {
+    qty = firstNum.value;
+    qtyIdx = firstNum.index;
   }
 
   // 3. Amount: number followed by rupaye/rupees, else the last (larger) number
@@ -176,9 +177,9 @@ export function parseSpeech(text: string, items: Item[]): ParseResult {
   // 4. Customer: word before "ko", else first unknown non-stop word
   const koIdx = tokens.findIndex((t) => t === "ko" || t === "को");
   if (koIdx > 0) {
-    customerName = tokens[koIdx - 1];
+    customerName = tokens[koIdx - 1] ?? "";
   } else {
-    const known = new Set(items.map((i) => i.name.toLowerCase().split(" ")[0]));
+    const known = new Set(items.map((i) => i.name.toLowerCase().split(" ")[0] ?? ""));
     const cand = tokens.find(
       (t, i) =>
         i !== qtyIdx &&

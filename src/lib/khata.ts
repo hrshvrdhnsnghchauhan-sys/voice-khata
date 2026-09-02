@@ -225,7 +225,8 @@ export function saveTxn(draft: DraftTxn): Txn {
     // Auto stock update — reduce sold quantity (create item if unknown)
     const items = [...d.items];
     const idx = items.findIndex((i) => i.name.toLowerCase() === draft.itemName.toLowerCase());
-    if (idx >= 0) items[idx] = { ...items[idx], stock: +(items[idx].stock - draft.qty).toFixed(2) };
+    const existing = idx >= 0 ? items[idx] : undefined;
+    if (existing) items[idx] = { ...existing, stock: +(existing.stock - draft.qty).toFixed(2) };
     else
       items.push({
         id: uid(),

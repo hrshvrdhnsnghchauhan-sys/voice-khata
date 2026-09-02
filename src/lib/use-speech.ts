@@ -35,7 +35,7 @@ export function useSpeech(lang = "hi-IN") {
     rec.interimResults = true;
     rec.onresult = (e) => {
       let text = "";
-      for (let i = 0; i < e.results.length; i++) text += e.results[i][0].transcript;
+      for (let i = 0; i < e.results.length; i++) text += e.results[i]?.[0]?.transcript ?? "";
       setTranscript(text);
     };
     rec.onerror = (e) => {
