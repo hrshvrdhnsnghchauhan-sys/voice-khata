@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LedgerRouteImport } from './routes/ledger'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SpeakRouteImport } from './routes/speak'
+import { Route as StockRouteImport } from './routes/stock'
+import { Route as SummaryRouteImport } from './routes/summary'
+import { Route as CustomersIndexRouteImport } from './routes/customers.index'
+import { Route as CustomersIdRouteImport } from './routes/customers.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LedgerRoute = LedgerRouteImport.update({
+  id: '/ledger',
+  path: '/ledger',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SpeakRoute = SpeakRouteImport.update({
+  id: '/speak',
+  path: '/speak',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StockRoute = StockRouteImport.update({
+  id: '/stock',
+  path: '/stock',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SummaryRoute = SummaryRouteImport.update({
+  id: '/summary',
+  path: '/summary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomersIndexRoute = CustomersIndexRouteImport.update({
+  id: '/customers/',
+  path: '/customers/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomersIdRoute = CustomersIdRouteImport.update({
+  id: '/customers/$id',
+  path: '/customers/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ledger': typeof LedgerRoute
+  '/settings': typeof SettingsRoute
+  '/speak': typeof SpeakRoute
+  '/stock': typeof StockRoute
+  '/summary': typeof SummaryRoute
+  '/customers/$id': typeof CustomersIdRoute
+  '/customers/': typeof CustomersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ledger': typeof LedgerRoute
+  '/settings': typeof SettingsRoute
+  '/speak': typeof SpeakRoute
+  '/stock': typeof StockRoute
+  '/summary': typeof SummaryRoute
+  '/customers/$id': typeof CustomersIdRoute
+  '/customers': typeof CustomersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ledger': typeof LedgerRoute
+  '/settings': typeof SettingsRoute
+  '/speak': typeof SpeakRoute
+  '/stock': typeof StockRoute
+  '/summary': typeof SummaryRoute
+  '/customers/$id': typeof CustomersIdRoute
+  '/customers/': typeof CustomersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/ledger'
+    | '/settings'
+    | '/speak'
+    | '/stock'
+    | '/summary'
+    | '/customers/$id'
+    | '/customers/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/ledger'
+    | '/settings'
+    | '/speak'
+    | '/stock'
+    | '/summary'
+    | '/customers/$id'
+    | '/customers'
+  id:
+    | '__root__'
+    | '/'
+    | '/ledger'
+    | '/settings'
+    | '/speak'
+    | '/stock'
+    | '/summary'
+    | '/customers/$id'
+    | '/customers/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LedgerRoute: typeof LedgerRoute
+  SettingsRoute: typeof SettingsRoute
+  SpeakRoute: typeof SpeakRoute
+  StockRoute: typeof StockRoute
+  SummaryRoute: typeof SummaryRoute
+  CustomersIdRoute: typeof CustomersIdRoute
+  CustomersIndexRoute: typeof CustomersIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ledger': {
+      id: '/ledger'
+      path: '/ledger'
+      fullPath: '/ledger'
+      preLoaderRoute: typeof LedgerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/speak': {
+      id: '/speak'
+      path: '/speak'
+      fullPath: '/speak'
+      preLoaderRoute: typeof SpeakRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stock': {
+      id: '/stock'
+      path: '/stock'
+      fullPath: '/stock'
+      preLoaderRoute: typeof StockRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/summary': {
+      id: '/summary'
+      path: '/summary'
+      fullPath: '/summary'
+      preLoaderRoute: typeof SummaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customers/': {
+      id: '/customers/'
+      path: '/customers'
+      fullPath: '/customers/'
+      preLoaderRoute: typeof CustomersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customers/$id': {
+      id: '/customers/$id'
+      path: '/customers/$id'
+      fullPath: '/customers/$id'
+      preLoaderRoute: typeof CustomersIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LedgerRoute: LedgerRoute,
+  SettingsRoute: SettingsRoute,
+  SpeakRoute: SpeakRoute,
+  StockRoute: StockRoute,
+  SummaryRoute: SummaryRoute,
+  CustomersIdRoute: CustomersIdRoute,
+  CustomersIndexRoute: CustomersIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
